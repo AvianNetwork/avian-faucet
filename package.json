@@ -1,7 +1,7 @@
 {
-  "name": "bitcoin-faucet",
-  "version": "0.2.0",
-  "description": "Easy Bitcoin faucet to help with testing applications.",
+  "name": "ravencoin-faucet",
+  "version": "0.0.1",
+  "description": "Easy Ravencoin faucet to help with testing applications.",
   "main": "index.js",
   "scripts": {
     "test": "standard",
@@ -9,29 +9,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jprichardson/bitcoin-faucet"
+    "url": "https://github.com/underdarkskies/ravencoin-faucet"
   },
   "keywords": [
-    "bitcoin",
+    "ravencoin",
     "testnet",
     "faucet",
     "testing",
-    "bitcoin faucet"
+    "ravencoin faucet"
   ],
-  "author": "JP Richardson",
+  "author": "underdarkskies",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jprichardson/bitcoin-faucet/issues"
+    "url": "https://github.com/underdarkskies/ravencoin-faucet/issues"
   },
-  "homepage": "https://github.com/jprichardson/bitcoin-faucet",
+  "homepage": "https://github.com/underdarkskies/ravencoin-faucet",
   "dependencies": {
-    "bitcoinjs-lib": "git://github.com/bitcoinjs/bitcoinjs-lib",
+    "bitcoinjs-lib": "git://github.com/underdarkskies/bitcoinjs-lib",
     "cb-insight": "^0.1.0",
     "chalk": "^1.0.0",
     "express": "^4.12.3"
   },
   "bin": {
-    "bitcoin-faucet": "./index.js"
+    "ravencoin-faucet": "./index.js"
   },
   "preferGlobal": true,
   "devDependencies": {

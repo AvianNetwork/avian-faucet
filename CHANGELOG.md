@@ -1,4 +1,8 @@
-0.x.y / 2015-xx-yy
+0.x.y / 2018-xx-yy
+-------------------
+- updated for ravencoin
+
+0.0.1 / 2018-07-12
 -------------------
 - added version output on `/`
 
