@@ -45,7 +45,9 @@ app.get('/faucet/withdrawal', function (req, res) {
 
   // satoshis
   var amount = 55000000000
-  
+  var addy = req.query.address.toString()
+  console.log('Field Input:', addy);
+  if(isAddress(addy)) {
   test(req.query.address, function (err, bal) {
 	if(bal <= 550000000000) {
 		spend(keypair, req.query.address, amount, function (err, txId) {
@@ -57,16 +59,26 @@ app.get('/faucet/withdrawal', function (req, res) {
 	}
 	if (bal > 550000000000){
 		return res.status(422).send({ status: 'error', data: { message: 'Try again later after making some assets.' } })
-	}	
-	if (bal === undefined) {
-		return res.status(422).send({ status: 'error', data: { message: 'Please enter a valid Testnet Address' } })
 	}
+
   })
+  } else {
+  return res.status(425).send({ status: 'error', data: { message: 'Please enter a valid Testnet Address' } })
+  }
 })
+function isAddress(string) {
+  try {
+    bitcoin.address.toOutputScript(string, bitcoin.networks.testnet)
+  } catch (e) {
+    return false
+  }
+
+  return true
+}
 function test(addr, callback) { 
   blockchain.addresses.summary(addr, function (err, data) {
     if (err) return callback(err)
-	
+
 	callback(null, data.balance)
 	})
 }
