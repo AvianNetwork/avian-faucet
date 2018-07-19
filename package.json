@@ -25,8 +25,9 @@
   },
   "homepage": "https://github.com/underdarkskies/ravencoin-faucet",
   "dependencies": {
+    "bignumber.js": "^7.2.1",
     "bitcoinjs-lib": "git://github.com/underdarkskies/bitcoinjs-lib",
-    "cb-insight": "^0.1.0",
+    "cb-insight": "git://github.com/underdarkskies/cb-insight",
     "chalk": "^1.0.0",
     "express": "^4.12.3"
   },

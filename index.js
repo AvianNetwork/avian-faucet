@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+var BigNumber = require('bignumber.js');
 var http = require('http')
 var path = require('path')
 var Blockchain = require('cb-insight')
@@ -44,28 +44,27 @@ app.get('/faucet/withdrawal', function (req, res) {
   }
 
   // satoshis
-  var amount = 55000000000
+  var amount = 500000000000
   var addy = req.query.address.toString()
   console.log('Field Input:', addy);
-  if(isAddress(addy)) {
-  test(req.query.address, function (err, bal) {
-	if(bal <= 550000000000) {
-		spend(keypair, req.query.address, amount, function (err, txId) {
-			if (err) {
-				return res.status(500).send({status: 'error', data: {message: err.message}})
-			}
-			return res.send({status: 'success', data: {txId: txId}})
-		})
-	}
-	if (bal > 550000000000){
-		return res.status(422).send({ status: 'error', data: { message: 'Try again later after making some assets.' } })
-	}
 
-  })
+  if(isAddress(addy)) {
+    test(req.query.address, function (err, bal) {
+  	console.log('Requestors Balance:', bal)
+
+  		spend(keypair, req.query.address, amount, function (err, txId) {
+  			if (err) {
+  				return res.status(500).send({status: 'error', data: {message: err.message}})
+  			}
+  			return res.send({status: 'success', data: {txId: txId}})
+  		})
+
+    })
   } else {
-  return res.status(425).send({ status: 'error', data: { message: 'Please enter a valid Testnet Address' } })
+    return res.status(425).send({ status: 'error', data: { message: 'Please enter a valid Testnet Address' } })
   }
 })
+
 function isAddress(string) {
   try {
     bitcoin.address.toOutputScript(string, bitcoin.networks.testnet)
@@ -75,13 +74,15 @@ function isAddress(string) {
 
   return true
 }
-function test(addr, callback) { 
+
+function test(addr, callback) {
   blockchain.addresses.summary(addr, function (err, data) {
     if (err) return callback(err)
 
 	callback(null, data.balance)
 	})
 }
+
 function spend(keypair, toAddress, amount, callback) {
   blockchain.addresses.unspents(address, function (err, utxos) {
     if (err) return callback(err)
@@ -97,7 +98,7 @@ function spend(keypair, toAddress, amount, callback) {
     var tx = new bitcoin.TransactionBuilder(bitcoin.networks.testnet, 100000000)
     tx.addOutput(toAddress, amount)
 
-    var change = balance - amount - 20000000
+    var change = new BigNumber(balance).minus(amount).minus(20000000).toNumber()
     if (change > 0) {
       tx.addOutput(address, change)
     }
