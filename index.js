@@ -44,7 +44,7 @@ app.get('/faucet/withdrawal', function (req, res) {
   }
 
   // satoshis
-  var amount = 500000000000
+  var amount = 55000000000
   var addy = req.query.address.toString()
   console.log('Field Input:', addy);
 
