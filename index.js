@@ -10,14 +10,14 @@ var bitcoin = require('bitcoinjs-lib')
 
 var PORT = process.env.FAUCET_PORT || process.env.PORT || 14004
 
-var privkey = process.env.PRIVKEY
+var privkey = '' // Add privkey
 
 if (privkey == undefined) {
   var WALLET_FILE = process.env.FAUCET_WALLET || path.join(process.env.HOME || process.env.USERPROFILE, '.ravencoin-faucet', 'wallet')
   var WALLET_PATH = process.env.FAUCET_PATH || path.join(process.env.HOME || process.env.USERPROFILE, '.ravencoin-faucet')
   // initialize wallet
   if (!fs.existsSync(WALLET_FILE)) {
-    privkey = bitcoin.ECPair.makeRandom({network: bitcoin.networks.testnet, compressed: false}).toWIF()
+    privkey = bitcoin.ECPair.makeRandom({network: bitcoin.networks.mainnet, compressed: false}).toWIF()
     fs.mkdirSync(WALLET_PATH);
 	fs.writeFileSync(WALLET_FILE, privkey, 'utf-8')
   } else {
@@ -28,13 +28,13 @@ if (privkey == undefined) {
 var keypair = bitcoin.ECPair.fromWIF(privkey, bitcoin.networks.testnet)
 var address = keypair.getAddress().toString()
 
-var blockchain = new Blockchain('https://testnet.ravencoin.network')
+var blockchain = new Blockchain('https://explorer.avn.network')
 
 var app = express()
 app.get('/faucet', function (req, res) {
   var pkg = require('./package')
   res.set('Content-Type', 'text/plain')
-  res.end('ravencoin-faucet version: ' + pkg.version + '\n\nPlease send funds back to: ' + address)
+  res.end('avian-faucet version: ' + pkg.version + '\n\nPlease send funds back to: ' + address) // Not sure where the frikin entry is
 })
 
 // only ravencoin testnet supported for now
@@ -95,7 +95,7 @@ function spend(keypair, toAddress, amount, callback) {
       return callback(new Error('Faucet doesn\'t contain enough RVN to send.'))
     }
 
-    var tx = new bitcoin.TransactionBuilder(bitcoin.networks.testnet, 100000000)
+    var tx = new bitcoin.TransactionBuilder(bitcoin.networks.mainnet, 100000000)
     tx.addOutput(toAddress, amount)
 
     var change = new BigNumber(balance).minus(amount).minus(20000000).toNumber()
@@ -124,6 +124,6 @@ var server = http.createServer(app)
 
 server.listen(PORT, function (err) {
   if (err) console.error(err)
-  console.log('\n  ravencoin-faucet listening on port %s', chalk.blue.bold(PORT))
+  console.log('\n  avian-faucet listening on port %s', chalk.blue.bold(PORT))
   console.log('  deposit funds to: %s', chalk.green.bold(address))
 })

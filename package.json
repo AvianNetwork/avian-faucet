@@ -1,7 +1,7 @@
 {
-  "name": "ravencoin-faucet",
+  "name": "avian-faucet",
   "version": "0.0.1",
-  "description": "Easy Ravencoin faucet to help with testing applications.",
+  "description": "Easy Avian faucet to help with testing applications.",
   "main": "index.js",
   "scripts": {
     "test": "standard",
@@ -12,18 +12,18 @@
     "url": "https://github.com/underdarkskies/ravencoin-faucet"
   },
   "keywords": [
-    "ravencoin",
+    "avian",
     "testnet",
     "faucet",
     "testing",
-    "ravencoin faucet"
+    "avian faucet"
   ],
   "author": "underdarkskies",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/underdarkskies/ravencoin-faucet/issues"
+    "url": "https://github.com/underdarkskies/avian-faucet/issues"
   },
-  "homepage": "https://github.com/underdarkskies/ravencoin-faucet",
+  "homepage": "https://github.com/underdarkskies/avian-faucet",
   "dependencies": {
     "bignumber.js": "^7.2.1",
     "bitcoinjs-lib": "git://github.com/underdarkskies/bitcoinjs-lib",
